@@ -1,32 +1,17 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 const gallery = document.querySelector(".gallery");
-for (let item of galleryItems) {
-    const galleryItem = document.createElement("div");
-    galleryItem.classList.add("gallery__item");
+const galleryCard = galleryItems.map(
+    (item) => `<li class = "gallery__item"><a class = "gallery__link" href = "${item.original}"><img class = "gallery__image" src = "${item.preview}" alt = "${item.description}" data-source = "${item.original}"/></a></li>`
+).join("");
 
-    const galleryLink = document.createElement("a");
-    galleryLink.classList.add("gallery__link");
-    galleryLink.href = item.original;
+gallery.innerHTML = galleryCard;
 
-    const galleryImage = document.createElement("img");
-    galleryImage.classList.add("gallery__image");
-    galleryImage.src = item.preview;
-    galleryImage.dataset.source = item.original;
-    galleryImage.alt = item.description;
-
-    galleryLink.appendChild(galleryImage);
-    galleryItem.appendChild(galleryLink);
-    gallery.appendChild(galleryItem);
-}
 
 gallery.addEventListener("click", (event) => {
-    event.preventDefault;
-
-    const lightbox = basicLightbox.create(`
-    <img src="${event.target.dataset.source}" width="800" height="600">
-  `);
-
-    lightbox.show();
+    event.preventDefault();
+    const instance = basicLightbox.create(`
+    <img src = "${event.target.dataset.source}" width = "800" height = "600"/>`);
+    instance.show();
 });
 console.log(galleryItems);
